@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聯絡我 - 我的個人網站</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            text-align: center;
+            background-color: #444;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .content {
+            padding: 20px;
+            padding-bottom: 100px; /* 確保有足夠間距 */
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .contact-form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .contact-form button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .contact-form button:hover {
+            background-color: #555;
+        }
+        .captcha {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .captcha img {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .captcha-text {
+            font-size: 24px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .captcha button {
+            font-size: 0.8em; /* 縮小按鈕的字體 */
+            padding: 5px 10px; /* 調整按鈕的內間距 */
+            margin-left: 10px; /* 增加與驗證碼字串之間的間距 */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>聯絡我</h1>
+</header>
+
+<nav>
+    <a href="index.html">首頁</a>
+    <a href="blog.html">部落格</a>
+    <a href="about.html">關於我</a>
+    <a href="contact.html">聯絡我</a>
+</nav>
+
+<div class="content">
+    <h2>聯絡我</h2>
+    <form class="contact-form" onsubmit="sendEmail(event)">
+        <label for="name">姓名：</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="email">電子郵件：</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="message">訊息：</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <div class="captcha">
+            <label for="captcha">驗證碼：</label>
+            <input type="text" id="captcha" name="captcha" required>
+            <div class="captcha-text" id="captcha-text"></div>
+            <button type="button" onclick="generateCaptcha()">重新產生驗證碼</button>
+        </div>
+        
+        <button type="submit">送出</button>
+    </form>
+</div>
+
+<footer>
+    <p>&copy; 2024 我的個人網站. 版權所有.</p>
+    <p>社交媒體連結：
+        <a href="#" target="_blank">Facebook</a> |
+        <a href="#" target="_blank">Instagram</a> |
+        <a href="#" target="_blank">Twitter</a>
+    </p>
+</footer>
+
+<script>
+    let captchaValue = '';
+
+    function generateCaptcha() {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < 6; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        captchaValue = result;
+        document.getElementById('captcha-text').textContent = result;
+    }
+
+    // 頁面載入時生成驗證碼
+    window.onload = generateCaptcha;
+
+    // 表單提交功能
+    function sendEmail(event) {
+        event.preventDefault();
+
+        const captchaInput = document.getElementById('captcha').value;
+        if (captchaInput !== captchaValue) {
+            alert('驗證碼錯誤，請再試一次');
+            generateCaptcha();
+            return;
+        }
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+
+        const mailtoLink = `mailto:hellopippen@gmail.com?subject=聯絡表單訊息&body=姓名：${name}%0A電子郵件：${email}%0A訊息：${message}`;
+        window.location.href = mailtoLink;
+        
+        alert('訊息已送出，謝謝您的聯絡！');
+    }
+</script>
+
+</body>
+</html>

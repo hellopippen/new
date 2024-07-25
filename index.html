@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的個人網站</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .banner {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        .banner img {
+            width: 100%;
+            display: none;
+        }
+        .banner img.active {
+            display: block;
+        }
+        nav {
+            text-align: center;
+            background-color: #444;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .content {
+            padding: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        .search-bar {
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>歡迎來到我的個人網站</h1>
+</header>
+
+<div class="banner">
+    <img src="IMG_E5912.jpg" alt="Banner 1" class="active">
+    <img src="IMG_E5912.jpg" alt="Banner 2">
+    <img src="IMG_E5912.jpg" alt="Banner 3">
+</div>
+
+<nav>
+    <a href="#">首頁</a>
+    <a href="blog.html">部落格</a>
+    <a href="about.html">關於我</a>
+    <a href="contact.html">聯絡我</a>
+</nav>
+
+<div class="content">
+    <h2>我的部落格</h2>
+    <div class="search-bar">
+        <input type="text" id="search" placeholder="搜尋部落格">
+        <button onclick="searchBlog()">搜尋</button>
+    </div>
+    <p>這裡將顯示我的部落格內容。</p>
+</div>
+
+<footer>
+    <p>&copy; 2024 我的個人網站. 版權所有.</p>
+    <p>社交媒體連結：
+        <a href="#" target="_blank">Facebook</a> |
+        <a href="#" target="_blank">Instagram</a> |
+        <a href="#" target="_blank">Twitter</a>
+    </p>
+</footer>
+
+<script>
+    // Banner 輪播效果
+    let currentIndex = 0;
+    const banners = document.querySelectorAll('.banner img');
+    setInterval(() => {
+        banners[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % banners.length;
+        banners[currentIndex].classList.add('active');
+    }, 3000);
+
+    // 搜尋功能
+    function searchBlog() {
+        const query = document.getElementById('search').value;
+        alert('搜尋: ' + query);
+    }
+</script>
+
+</body>
+</html>
